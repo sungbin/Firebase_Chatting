@@ -1,4 +1,4 @@
-package Chatting;
+package chattings;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,14 +24,9 @@ public class ChattingRoom {
 
 	/**
 	 * make new chatroom in firestore
-	 * 
-	 * @throws ExecutionException
-	 * @throws InterruptedException
 	 */
 	public ChattingRoom(String master, String name, int num, List<String> people)
 			throws InterruptedException, ExecutionException {
-
-		this.ref = FirestoreClient.getFirestore().collection("chatting_rooms").document();
 
 		this.map = new HashMap<String, Object>();
 		this.master = master;
@@ -43,6 +38,7 @@ public class ChattingRoom {
 		map.put("num", num);
 		map.put("people", people);
 
+		this.ref = FirestoreClient.getFirestore().collection(Main.chatRoomCollectionPath).document();
 		this.ref.set(map).get();
 	}
 
